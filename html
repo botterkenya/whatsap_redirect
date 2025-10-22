@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Open WhatsApp</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align:center; padding:50px; background:#f8f9fa; }
+    h2 { color:#25D366; }
+    button { font-size:18px; padding:12px 20px; border-radius:8px; background:#25D366; color:white; border:none; cursor:pointer; margin-top:20px; }
+  </style>
+</head>
+<body>
+  <h2>Connecting you to WhatsApp…</h2>
+  <p>If WhatsApp does not open automatically, tap the button below.</p>
+  <button id="open">Open WhatsApp</button>
+
+  <script>
+    // ==== REPLACE THIS PHONE NUMBER WITH YOURS ====
+    const phone = '254106348305';
+    const text = encodeURIComponent('Hello, am ready for this big deal');
+
+    // WhatsApp app link
+    const appUri = 'whatsapp://send?phone=' + phone + '&text=' + text;
+    // WhatsApp Web fallback
+    const webUri = 'https://api.whatsapp.com/send?phone=' + phone + '&text=' + text;
+
+    // Try opening app first
+    function tryOpen() {
+      window.location = appUri;
+      // Fallback to web after 800ms
+      setTimeout(() => { window.location = webUri; }, 800);
+    }
+
+    // Button fallback
+    document.getElementById('open').addEventListener('click', () => {
+      window.location = webUri;
+    });
+
+    // Auto-run on page load
+    tryOpen();
+  </script>
+</body>
+</html>
